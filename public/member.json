@@ -1,0 +1,57 @@
+[
+    {
+      "BiodataID": 1,
+      "BiodataType": "Female",
+      "Name": "Aisha Ahmed",
+      "ProfileImage": "https://i.ibb.co/GdWZNds/girl-1.jpg",
+      "PermanentDivision": "Dhaka",
+      "Age": 28,
+      "Occupation": "Job"
+    },
+    {
+      "BiodataID": 2,
+      "BiodataType": "Male",
+      "Name": "Zaid Khan",
+      "ProfileImage": "https://i.ibb.co/3S20vhm/boy-3.jpg",
+      "PermanentDivision": "Khulna",
+      "Age": 32,
+      "Occupation": "Student"
+    },
+    {
+      "BiodataID": 3,
+      "BiodataType": "Female",
+      "Name": "Sara Rahman",
+      "ProfileImage": "https://i.ibb.co/RgbxyG9/girl-2.jpg",
+      "PermanentDivision": "Sylhet",
+      "Age": 25,
+      "Occupation": "Housewife"
+    },
+    {
+      "BiodataID": 4,
+      "BiodataType": "Male",
+      "Name": "Ali Hassan",
+      "ProfileImage": "https://i.ibb.co/DfhKDcp/boy-2.webp",
+      "PermanentDivision": "Rangpur",
+      "Age": 23,
+      "Occupation": "Job"
+    },
+    {
+      "BiodataID": 5,
+      "BiodataType": "Female",
+      "Name": "Zara Khan",
+      "ProfileImage": "https://i.ibb.co/0Kv4vwd/girl-3.jpg",
+      "PermanentDivision": "Chattagram",
+      "Age": 45,
+      "Occupation": "Job"
+    },
+    {
+      "BiodataID": 6,
+      "BiodataType": "Male",
+      "Name": "Ahmed Siddique",
+      "ProfileImage": "https://i.ibb.co/3zLNWwH/boy-1.webp",
+      "PermanentDivision": "Maymansign",
+      "Age": 30,
+      "Occupation": "Student"
+    }
+  ]
+  
