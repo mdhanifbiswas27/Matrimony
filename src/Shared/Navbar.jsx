@@ -1,15 +1,54 @@
 import { Link } from "react-router-dom";
 import logo from '../assets/pngtree-wedding-logo-template-brand-branding-picture-image_8319025.png'
+import { useContext } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+    const {user,logOut}= useContext(AuthContext);
+    // const userImg =user?.metadata?.photoURL;
+   
+   const HandleLogout= ()=>{
+      logOut()
+      .then( result=>{
+         
+         Swal.fire({
+            title: "Log Out successfully",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `
+            }
+          });
+      } )
+      .catch(error=>{
+        console.log(error);
+      })
+   }
+
 
     const links = <>
         <li><Link>Home</Link></li>
         <li><Link>Biodatas</Link></li>
         <li><Link>About Us</Link></li>
         <li><Link>Contact Us</Link></li>
-        <li><Link>Dashboard</Link></li>
-        <li><Link to='/login'>Login</Link></li>
+        {user&& <li><Link>Dashboard</Link></li>}
+        {
+            user?<>
+            <li className="cursor-pointer" onClick={HandleLogout}>LogOut</li>
+            </>:<>
+            <li><Link to='/login'>Login</Link></li>
+            </>
+        }
     </>
     return (
 
@@ -23,7 +62,7 @@ const Navbar = () => {
                 <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                     <button type="button" className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                         <span className="sr-only">Open user menu</span>
-                        <img className="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo " />
+                        <img className="w-8 h-8 rounded-full" src={user?.photoURL} alt="user photo " />
                     </button>
                     
                     <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
