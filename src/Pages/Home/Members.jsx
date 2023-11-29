@@ -7,7 +7,7 @@ const Members = () => {
     const [members, setMembers] = useState([]);
 
     useEffect(()=>{
-        fetch('member.json')
+        fetch('http://localhost:5000/user')
         .then(res=> res.json())
         .then(data => setMembers(data))
     },[])
@@ -17,7 +17,7 @@ const Members = () => {
             <h1 className="text-center my-10 font-bold text-[50px]">Our Premium Members</h1>
             <div className="grid grid-cols-3">
                 {
-                  members.map(item => <Cart key={item.BiodataID} item={item}></Cart>)  
+                  members.map(item => <Cart key={item._id} item={item}></Cart>)  
                 }
             </div>
         </div>

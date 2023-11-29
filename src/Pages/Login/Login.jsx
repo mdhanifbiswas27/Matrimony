@@ -68,6 +68,7 @@ const Login = () => {
         .then(result=>{
             const user = result.user;
             console.log(user);
+            
             Swal.fire({
                 title: "Log in successfully",
                 showClass: {

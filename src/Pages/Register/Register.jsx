@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 
 
 const Register = () => {
-
-  const {createUser} = useContext(AuthContext);
+   const navigate = useNavigate();
+  const {createUser,updateUserProfile,reset} = useContext(AuthContext);
 
 
     const handleSingUp = event => {
@@ -21,43 +21,36 @@ const Register = () => {
         .then(result=>{
             const user = result.user;
             console.log(user);
-            Swal.fire({
-                title: "User Created successfully",
-                showClass: {
-                  popup: `
-                    animate__animated
-                    animate__fadeInUp
-                    animate__faster
-                  `
-                },
-                hideClass: {
-                  popup: `
-                    animate__animated
-                    animate__fadeOutDown
-                    animate__faster
-                  `
-                }
-              });
+            
+            updateUserProfile(name,photo)
+            .then(()=>{ 
+              alert('created');
+              navigate('/')
+            })
+            .catch(()=>{  })
+           
+            navigate('/')
         })
         .catch(error=>{
             console.log(error);
             Swal.fire({
-                title: "Something went wrong! Try again",
-                showClass: {
-                  popup: `
-                    animate__animated
-                    animate__fadeInUp
-                    animate__faster
-                  `
-                },
-                hideClass: {
-                  popup: `
-                    animate__animated
-                    animate__fadeOutDown
-                    animate__faster
-                  `
-                }
-              });
+              title: "user crated successfully",
+              showClass: {
+                popup: `
+                  animate__animated
+                  animate__fadeInUp
+                  animate__faster
+                `
+              },
+              hideClass: {
+                popup: `
+                  animate__animated
+                  animate__fadeOutDown
+                  animate__faster
+                `
+              }
+            });
+            navigate('/');
         })
         
     }

@@ -3,6 +3,7 @@ import Main from "../Layout/Main";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
+import ProfileDetails from "../Pages/ProfileDetails/ProfileDetails";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +21,11 @@ const router = createBrowserRouter([
             {
                 path:'/register',
                 element:<Register></Register>
+            },
+            {
+                path:'/user/:id',
+                element:<ProfileDetails></ProfileDetails>,
+                loader:()=> fetch('http://localhost:5000/user')
             }
         ]
 
