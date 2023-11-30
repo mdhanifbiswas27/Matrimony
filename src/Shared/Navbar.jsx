@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from '../assets/pngtree-wedding-logo-template-brand-branding-picture-image_8319025.png'
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
@@ -7,10 +7,10 @@ import Swal from "sweetalert2";
 const Navbar = () => {
     const {user,logOut}= useContext(AuthContext);
     // const userImg =user?.metadata?.photoURL;
-   
+   const navigate = useNavigate();
    const HandleLogout= ()=>{
       logOut()
-      .then( result=>{
+      .then( ()=>{
          
          Swal.fire({
             title: "Log Out successfully",
@@ -29,9 +29,27 @@ const Navbar = () => {
               `
             }
           });
+          navigate('/')
       } )
       .catch(error=>{
         console.log(error);
+        Swal.fire({
+            title: "Something wrong try again",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `
+            }
+          });
       })
    }
 

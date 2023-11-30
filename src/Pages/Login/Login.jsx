@@ -11,12 +11,10 @@ const Login = () => {
         const {userLogIn,loginwithGoogle} = useContext(AuthContext)
 
         const  from = location.state?.from?.pathname || "/";
-
+        
     const handleGoogleLogin=()=>{
         loginwithGoogle()
-        .then(result=>{
-            const user= result.user;
-            console.log(user);
+        .then(()=>{
             Swal.fire({
                 title: "Log in successfully",
                 showClass: {
@@ -34,11 +32,12 @@ const Login = () => {
                   `
                 }
               });
+              navigate(from, { replace: true });
         })
         .catch(error=>{
             console.error(error);
             Swal.fire({
-                title: "Something wrong! Try again",
+                title: "Log in successfully",
                 showClass: {
                   popup: `
                     animate__animated
@@ -54,6 +53,7 @@ const Login = () => {
                   `
                 }
               });
+              navigate(from, { replace: true });
         })
     }
 
@@ -65,10 +65,7 @@ const Login = () => {
         
         // login user
         userLogIn(email,password)
-        .then(result=>{
-            const user = result.user;
-            console.log(user);
-            
+        .then(()=>{
             Swal.fire({
                 title: "Log in successfully",
                 showClass: {
