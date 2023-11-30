@@ -1,12 +1,14 @@
 import { useLoaderData } from "react-router-dom";
 
 
-const ProfileDetails = () => {
-    const loadProfile = useLoaderData();
-    const { Name, BiodataID, _id, ProfileImage, PermanentDivision, Age, Occupation, BiodataType } = loadProfile[0];
-    console.log('loader user name', loadProfile);
+const Details = () => {
+    const loadBiodata = useLoaderData();
+
+    const { Name, BiodataID, _id, ProfileImage, PermanentDivision, Age, Occupation, BiodataType } = loadBiodata[0];
+   
     return (
-        <div className="max-w-screen-xl mx-auto">
+        <div>
+            <div className="max-w-screen-xl mx-auto">
             <div className="flex gap-10">
                 <div><img className="max-w-[400px] h-[400px]" src={ProfileImage} alt="" /></div>
                 <div>
@@ -27,7 +29,8 @@ const ProfileDetails = () => {
 
                 Despite their enigmatic nature, Jasper is known for their eccentric generosity, showering friends with ethereal gifts that seem to materialize out of thin air. Whether it's a potion brewed under a full moon or a personalized constellation map, Jasper Thornfield is the epitome of a cosmic enchanter, weaving magic into the fabric of everyday life.</p></div>
         </div>
+        </div>
     );
 };
 
-export default ProfileDetails;
+export default Details;

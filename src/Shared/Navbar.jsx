@@ -38,10 +38,10 @@ const Navbar = () => {
 
     const links = <>
         <li><Link>Home</Link></li>
-        <li><Link>Biodatas</Link></li>
+        <li><Link to='/biodata'>Biodatas</Link></li>
         <li><Link>About Us</Link></li>
         <li><Link>Contact Us</Link></li>
-        {user&& <li><Link>Dashboard</Link></li>}
+        {user&& <li><Link to='/dashboard'>Dashboard</Link></li>}
         {
             user?<>
             <li className="cursor-pointer" onClick={HandleLogout}>LogOut</li>
