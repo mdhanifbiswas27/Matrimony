@@ -67,6 +67,7 @@ const Dashboard = () => {
                     </ul>
             </div>
             <div className="flex-1 py-24">
+              <h2>Welcome to dashboard</h2>
                 <Outlet>
                     
                 </Outlet>
