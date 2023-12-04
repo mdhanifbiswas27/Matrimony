@@ -2,39 +2,63 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import UseAxiosPublic from "../../Hooks/UseaxiosPublic";
+
+
 
 
 const Register = () => {
    const navigate = useNavigate();
-  const {createUser,updateUserProfile,reset} = useContext(AuthContext);
-
+  const {createUser,updateUserProfile} = useContext(AuthContext);
+ const axiospublic = UseAxiosPublic();
 
     const handleSingUp = event => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        const name = form.name.value;
-        const photo = form.photo.value;
+        const Name = form.name.value;
+        const ProfileImage = form.photo.value;
+        const biodata = {email, Name,ProfileImage,}
+
+
+
+        axiospublic.post('biodata',biodata)
+        .then(res=>{
+            if(res.data.insertedId){
+                Swal.fire({
+                    title: 'success',
+                    text: 'user created successfully!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                })
+            }
+        })
         // create a user
         createUser(email,password)
         .then(result=>{
             const user = result.user;
             console.log(user);
             
-            updateUserProfile(name,photo)
+            updateUserProfile(Name,ProfileImage)
             .then(()=>{ 
-              alert('created');
-              navigate('/')
+              Swal.fire({
+                title: 'success',
+                text: 'user created successfully!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            })
+            
             })
             .catch(()=>{  })
+           
            
             navigate('/')
         })
         .catch(error=>{
             console.log(error);
             Swal.fire({
-              title: "user crated successfully",
+              title: "user created successfully",
               showClass: {
                 popup: `
                   animate__animated

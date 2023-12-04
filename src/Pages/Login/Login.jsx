@@ -2,9 +2,11 @@ import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from 'sweetalert2'
+import UseAxiosPublic from "../../Hooks/UseaxiosPublic";
 
 
 const Login = () => {
+  const axiospublic = UseAxiosPublic();
 
         const navigate = useNavigate();
         const location = useLocation();
@@ -14,24 +16,16 @@ const Login = () => {
         
     const handleGoogleLogin=()=>{
         loginwithGoogle()
-        .then(()=>{
-            Swal.fire({
-                title: "Log in successfully",
-                showClass: {
-                  popup: `
-                    animate__animated
-                    animate__fadeInUp
-                    animate__faster
-                  `
-                },
-                hideClass: {
-                  popup: `
-                    animate__animated
-                    animate__fadeOutDown
-                    animate__faster
-                  `
-                }
-              });
+        .then(result=>{
+            console.log(result.user);
+            const userinfo ={
+              email: result.user?.email,
+              Name: result.user?.displayName,
+            }
+            axiospublic.post('/biodata', userinfo)
+            .then(res =>{
+              console.log(res.data)
+            })
               navigate(from, { replace: true });
         })
         .catch(error=>{

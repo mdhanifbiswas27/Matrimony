@@ -10,6 +10,9 @@ import Details from "../Shared/details";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import EditBioData from "../Pages/Dashboard/Pages/EditBiodata/EditBioData";
 import ViewBioData from "../Pages/Dashboard/Pages/ViewBiodata/ViewBioData";
+import GotMarried from "../Pages/Dashboard/Pages/GotMarried/GotMarried";
+import AdminDashboard from "../Pages/Dashboard/Pages/AdminDashBoard/AdminDashboard";
+import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 
 const router = createBrowserRouter([
     {
@@ -61,6 +64,18 @@ const router = createBrowserRouter([
             {
                 path:'/dashboard/viewBioData',
                 element:<ViewBioData></ViewBioData>
+            },
+            {
+              path:'/dashboard/gotmarried',
+              element:<GotMarried></GotMarried>
+            },
+            {
+               path: '/dashboard/admindashboard',
+               element: <AdminDashboard></AdminDashboard>
+            },
+            {
+                path: '/dashboard/manageusers',
+                element: <ManageUsers></ManageUsers>
             }
         ]
     }
