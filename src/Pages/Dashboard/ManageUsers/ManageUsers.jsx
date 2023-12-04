@@ -10,12 +10,31 @@ const ManageUsers = () => {
     const { refetch, data: users = [] } = useQuery({
         queryKey: ['biodata'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/biodata');
+            const res = await axiosSecure.get('/biodata',{
+                headers:{
+                    Authorization: `Bearer ${localStorage.getItem('access-token')}`
+                }
+            });
             return res.data;
         }
     });
 
-    const handleDelete = id =>{
+    const handleMakeAdmin = id => {
+        axiosSecure.patch(`/biodata/admin/${id}`)
+            .then(res => {
+                console.log(res.data)
+                if (res.data.modifiedCount > 0) {
+                    refetch();
+                    Swal.fire({
+                        title: "success!",
+                        text: "Admin added successfully",
+                        icon: "success"
+                    });
+                }
+            })
+    }
+
+    const handleDelete = id => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -24,23 +43,23 @@ const ManageUsers = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
-            
-             axiosSecure.delete(`/biodata/${id}`)
-             .then(res =>{
-                if(res.data.deletedCount > 0){
-                    refetch();
-                    Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success"
-                          }); 
-                }
-             })
+
+                axiosSecure.delete(`/biodata/${id}`)
+                    .then(res => {
+                        if (res.data.deletedCount > 0) {
+                            refetch();
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "BioData has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    })
             }
-          });
-        }
+        });
+    }
 
 
     return (
@@ -79,13 +98,17 @@ const ManageUsers = () => {
                                         {item.Name}
                                     </th>
                                     <td className="px-6 py-4">
-                                    {item.email}
+                                        {item.email}
                                     </td>
                                     <td className="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-                                        <button>Make Admin</button>
+                                        { item.role === 'admin'? 'Admin':
+                                            <button
+                                                onClick={() => handleMakeAdmin(item._id)} >Make Admin
+                                            </button>
+                                        }
                                     </td>
                                     <td className="px-6 py-4">
-                                        <button onClick={()=>handleDelete(item._id)}>Delete</button>
+                                        <button onClick={() => handleDelete(item._id)}>Delete</button>
                                     </td>
                                 </tr>)
                             }

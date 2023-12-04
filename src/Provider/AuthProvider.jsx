@@ -1,6 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { app } from "../Firebase/Firebase.config";
+import UseAxiosSecure from "../Hooks/UseAxiosSecure";
+import UseAxiosPublic from "../Hooks/UseaxiosPublic";
 const provider = new GoogleAuthProvider();
 
 export const AuthContext = createContext(null);
@@ -10,7 +12,7 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-
+    const axiospublic = UseAxiosPublic();
     // create a user
     const createUser = (email, password) => {
         setLoading(true);
@@ -25,16 +27,16 @@ const AuthProvider = ({ children }) => {
     }
 
     // login with google
-    const loginwithGoogle=()=>{
+    const loginwithGoogle = () => {
         setLoading(true);
-        return signInWithPopup(auth,provider)
+        return signInWithPopup(auth, provider)
     }
 
     // update user profile
-    const updateUserProfile=(name,photo)=>{
+    const updateUserProfile = (name, photo) => {
         updateProfile(auth.currentUser, {
             displayName: name, photoURL: photo
-          })
+        })
     }
 
     // Log Out
@@ -46,8 +48,21 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, user => {
             setUser(user);
+            if (user) {
+                // get token and store in client side
+                const userinfo = {email: user.email}
+                axiospublic.post('/jwt',userinfo )
+                .then(res =>{
+                    if(res.data.token){
+                        localStorage.setItem('access-token', res.data.token);
+                    }
+                })
+            } else {
+                // Todo something
+                localStorage.removeItem('access-token');
+            }
             setLoading(false);
-            console.log('current user', user);
+
         })
         return () => {
             return unsubscribe();
