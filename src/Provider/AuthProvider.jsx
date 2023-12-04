@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { app } from "../Firebase/Firebase.config";
 import UseAxiosSecure from "../Hooks/UseAxiosSecure";
@@ -47,6 +47,7 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, user => {
+            
             setUser(user);
             if (user) {
                 // get token and store in client side
@@ -67,7 +68,7 @@ const AuthProvider = ({ children }) => {
         return () => {
             return unsubscribe();
         }
-    }, [])
+    }, [axiospublic])
 
     const authInfo = {
         user,

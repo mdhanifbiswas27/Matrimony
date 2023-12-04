@@ -10,11 +10,7 @@ const ManageUsers = () => {
     const { refetch, data: users = [] } = useQuery({
         queryKey: ['biodata'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/biodata',{
-                headers:{
-                    Authorization: `Bearer ${localStorage.getItem('access-token')}`
-                }
-            });
+            const res = await axiosSecure.get('/biodata');
             return res.data;
         }
     });

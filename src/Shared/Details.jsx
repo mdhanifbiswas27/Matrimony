@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import UseAxiosPublic from "../Hooks/UseaxiosPublic";
 import BiodataDetails from "./BiodataDetails";
+import UseAxiosSecure from "../Hooks/UseAxiosSecure";
 
 
 const Details = () => {
     const [profile, setProfile] = useState([0])
     const loadProfile = useLoaderData();
-    const axiospublic = UseAxiosPublic();
+    const axiosSecure = UseAxiosSecure();
     const { Name, ProfileImage, PermanentDivision, Age, Occupation, BiodataType,_id } = loadProfile[0];
     const loadGender = BiodataType
 
@@ -15,7 +16,7 @@ const Details = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axiospublic.get('biodata');
+                const response = await axiosSecure.get('biodata');
                 const filterProfile = response.data.filter(item => item.BiodataType === loadGender);
                 setProfile(filterProfile);
             } catch (error) {
@@ -25,7 +26,7 @@ const Details = () => {
 
         fetchData();
 
-    }, [loadGender, axiospublic]);
+    }, [loadGender, axiosSecure]);
     return (
         <div className="max-w-screen-xl mx-auto grid grid-cols-3 gap-4 ">
             <div className="">

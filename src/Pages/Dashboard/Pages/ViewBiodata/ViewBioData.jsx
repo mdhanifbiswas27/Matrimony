@@ -1,22 +1,21 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../Provider/AuthProvider";
-import UseAxiosPublic from "../../../../Hooks/UseaxiosPublic";
-import { key } from "localforage";
-import ProfileDetails from "../../../ProfileDetails/ProfileDetails";
+import UseAxiosSecure from "../../../../Hooks/UseAxiosSecure";
+
 
 
 const ViewBioData = () => {
     const { user } = useContext(AuthContext)
-    const axiospublic = UseAxiosPublic();
+    const axiosSecure = UseAxiosSecure()
     const userEmail = user?.email;
-    const [porfile, setProfile] = useState([0])
+    const [porfile, setProfile] = useState([1])
 
-    console.log(porfile)
+    console.log('loaded profile',porfile)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axiospublic.get('biodata');
+                const response = await axiosSecure.get('biodata');
                 console.log("Response:", response);
 
                 // Assuming email is case-insensitive
@@ -35,7 +34,7 @@ const ViewBioData = () => {
         };
 
         fetchData();
-    }, [axiospublic, userEmail]);
+    }, [axiosSecure, userEmail]);
     return (
 
         <div className="px-10">
@@ -62,6 +61,7 @@ const ViewBioData = () => {
                                 </th>
                             </tr>
                         </thead>
+                        
                         <tbody>
                             {
                                 porfile.map((porfile, index) => <span key={index}>

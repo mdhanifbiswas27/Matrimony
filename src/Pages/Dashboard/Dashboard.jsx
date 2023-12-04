@@ -4,11 +4,14 @@ import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import Navbar from "../../Shared/Navbar";
+import UseAdmin from "../../Hooks/UseAdmin";
 
 const Dashboard = () => {
 
-  // TODO:get is admin vlue from backend
-  const isAdmin = true;
+  // get is admin vlue from backend
+  const [isAdmin] = UseAdmin();
+
+ console.log('check admin',isAdmin)
   const { logOut } = useContext(AuthContext)
   const navigate = useNavigate();
   const handleLogut = () => {

@@ -1,17 +1,28 @@
 import { useEffect, useState } from "react";
 import BiodataDetails from "../../Shared/BiodataDetails";
+import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 
 
 const BioData = () => {
     const [biodata, setBiodata] = useState([]);
+    const axiosSecure = UseAxiosSecure();
 
+   
     useEffect(() => {
-        fetch('http://localhost:5000/biodata')
-        .then(res=> res.json())
-        .then(data => setBiodata(data))
-    }, [])
-
-
+       
+        const fetchData = async () => {
+          try {
+            
+            const response = await axiosSecure.get('biodata');
+            
+            setBiodata(response.data);
+          } 
+          catch{error => console.error(error)} 
+        };
+    
+        
+        fetchData();
+      }, [axiosSecure]); 
 
     return (
         <div className="max-w-screen-xl mx-auto py-9">
@@ -124,6 +135,7 @@ const BioData = () => {
                     <div className="border-b-2 bg-slate-200 px-5 py-5">
                         <h2 className="text-[24px] font-bold">Find Your special someone</h2>
                     </div>
+                    
                     <div className="grid grid-cols-2 px-3">
                         {
                           biodata.map(item => <BiodataDetails key={item._id} item={item}></BiodataDetails>)

@@ -13,6 +13,8 @@ import ViewBioData from "../Pages/Dashboard/Pages/ViewBiodata/ViewBioData";
 import GotMarried from "../Pages/Dashboard/Pages/GotMarried/GotMarried";
 import AdminDashboard from "../Pages/Dashboard/Pages/AdminDashBoard/AdminDashboard";
 import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
+import Welcome from "../Shared/Welcome";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
     {
@@ -57,6 +59,10 @@ const router = createBrowserRouter([
         path:'/dashboard',
         element:<Dashboard></Dashboard>,
         children:[
+            {
+                path: '/dashboard',
+                element: <Welcome></Welcome>
+            },
             {
                 path:'/dashboard/editBiodata',
                 element:<EditBioData></EditBioData>
